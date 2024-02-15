@@ -1,21 +1,21 @@
 //***PRINT CHILDREN RECURSIVE***
 
-const tree = {
-    name: 'John',
-    children: [
-        {
-            name: 'Jim',
-            children: []
-        },
-        {
-            name: 'Zoe',
-            children: [
-                { name: 'Kyle', children: [] },
-                { name: 'Sophia', children: [] }
-            ]
-        }
-    ]
-}
+// const tree = {
+//     name: 'John',
+//     children: [
+//         {
+//             name: 'Jim',
+//             children: []
+//         },
+//         {
+//             name: 'Zoe',
+//             children: [
+//                 { name: 'Kyle', children: [] },
+//                 { name: 'Sophia', children: [] }
+//             ]
+//         }
+//     ]
+// }
 
 printChildrenRecursive = (tree, memo = {}) => {
     if(tree.children.length === 0){
@@ -259,36 +259,36 @@ reverseLinkedList = (head) => {
 //***MERGE TWO SORTED LINKED LIST***
 
 
-class Node {
-    constructor(value) {
-      this.value = value;
-      this.next = null;
-    }
-}
+// class Node {
+//     constructor(value) {
+//       this.value = value;
+//       this.next = null;
+//     }
+// }
 
 
-const node1 = new Node(1);
-const node2 = new Node(8);
-const node3 = new Node(22);
-const node4 = new Node(40);
+// const node1 = new Node(1);
+// const node2 = new Node(8);
+// const node3 = new Node(22);
+// const node4 = new Node(40);
 
 
-const node5 = new Node(4);
-const node6 = new Node(11);
-const node7 = new Node(16);
-const node8 = new Node(22);
+// const node5 = new Node(4);
+// const node6 = new Node(11);
+// const node7 = new Node(16);
+// const node8 = new Node(22);
 
 
-node1.next = node2;
-node2.next = node3;
-node3.next = node4;
+// node1.next = node2;
+// node2.next = node3;
+// node3.next = node4;
 
 
 
 
-node5.next = node6;
-node6.next = node7;
-node7.next = node8;
+// node5.next = node6;
+// node6.next = node7;
+// node7.next = node8;
 
 
 sortedMerge = (A, B) => {
@@ -307,7 +307,7 @@ sortedMerge = (A, B) => {
     }
 }
 
-console.log(sortedMerge(node1, node5))
+// console.log(sortedMerge(node1, node5))
 
 // (1)-(8)-(22)-(40)
 // (4)-(11)-(16)-(22)
@@ -330,6 +330,142 @@ console.log(sortedMerge(node1, node5))
 // (1)-(4)-(8)-(11)-(16)-(22)-(22)-(40)
 
 
+//***BINARY TREE ***
+// class Node {
+//     constructor(data) {
+//       this.data = data;
+//       this.left = null;
+//       this.right = null;
+//     }
+// }
+
+// class BinaryTree {
+//     constructor() {
+//       this.root = null;
+//     }
+
+//     insert(data) {
+//         this.root = this.insertNode(this.root, data);
+//     }
+
+//     insertNode(head, data){
+//         if(head == null){
+//             head = new Node();
+//             head.data = data;
+//             return head
+//         }
+    
+//         if(head.data < data){
+//             head.right = this.insertNode(head.right, data);
+//         }else{
+//             head.left = this.insertNode(head.left, data);
+//         }
+    
+//         return head 
+//     }
+
+//     inOrderTraversal() {
+//         this._inOrderTraversal(this.root);
+//     }
+    
+//     _inOrderTraversal(node) {
+//         if (node !== null) {
+//             this._inOrderTraversal(node.left);
+//             console.log(node.data);
+//             this._inOrderTraversal(node.right);
+//         }
+//     }
+
+
+//     printAllLeaves() {
+//         this._printAllLeaves(this.root);
+//     }
+
+//     _printAllLeaves(node){
+//         if(node == null) return;
+//         if(node.left == null && node.right == null){
+//             console.log(node.data + ',')
+//         }
+//         if(node.left != null){
+//             this._printAllLeaves(node.left)
+//         }
+//         if(node.right != null){
+//             this._printAllLeaves(node.rigth)
+//         }
+//     }
+// }
+
+// let tree = new BinaryTree();
+// tree.insert(50);
+// tree.insert(30);
+// tree.insert(70);
+// tree.insert(20);
+// tree.insert(40);
+// tree.insert(60);
+// tree.insert(80);
+// tree.insert(25);
+// tree.insert(45);
+// tree.insert(65);
+// tree.insert(80);
+// tree.insert(22);
+// tree.insert(43);
+// tree.insert(69);
+// tree.insert(98);
+// tree.insert(92);
+
+
+// console.log(tree.root)
+// tree.printAllLeaves();
+
+class Node {
+    constructor(data) {
+        this.data = data;
+        this.neighbors = [];
+    }
+
+    addNeighbor(neighbor) {
+        this.neighbors.push(neighbor);   
+    }
+}
+
+depthFirstSearch = (node, visited = {}, goal) => {
+    
+    if(node == null){
+        return false
+    }
+
+    if(node.data == goal){
+        return true
+    }
+
+    for(neighbor of node.neighbors){
+        if(visited[neighbor.data]){
+            continue;
+        }
+        visited[neighbor.data] = neighbor.data
+        const isFound = depthFirstSearch(neighbor, visited, goal);
+        if(isFound) return true;
+    }
+
+    return false
+    
+}
+
+// Creating nodes
+let nodeA = new Node('A');
+let nodeB = new Node('B');
+let nodeC = new Node('C');
+let nodeD = new Node('D');
+let nodeE = new Node('E');
+
+// Connecting nodes
+nodeA.addNeighbor(nodeB);
+nodeA.addNeighbor(nodeD);
+nodeB.addNeighbor(nodeD);
+nodeC.addNeighbor(nodeE);
+
+const isGoalFound = depthFirstSearch(nodeA, {}, 'D');
+console.log(isGoalFound)
 
 
 
